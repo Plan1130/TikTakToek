@@ -6,7 +6,7 @@
 //
 //
 
-#include "HeuristicPlayer.h"
+#include "HeuristicPlayer.hpp"
 
 #include <cassert>
 #include <climits>
