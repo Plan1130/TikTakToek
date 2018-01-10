@@ -2,7 +2,7 @@
 //  MinMaxPlayer.cpp
 //  TicTacToe
 //
-//  Created by David Stritzl on 29/11/15.
+//  Created by Florian Fikkert & Sander Koning
 //
 //
 
