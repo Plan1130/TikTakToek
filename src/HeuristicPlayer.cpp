@@ -12,6 +12,7 @@
 #include <climits>
 #include <cstdlib>
 #include <vector>
+#include <iostream>
 #include <algorithm>
 
 Position HeuristicPlayer::getNextMove(Board const& board, Field current_field) {
@@ -20,7 +21,11 @@ Position HeuristicPlayer::getNextMove(Board const& board, Field current_field) {
 
 	//init best score and current move
 	int moveScore = -1;
-	Position move = Position::unknown_position;
+
+	if(possible_moves.size() == 0)
+		return Position::unknown_position;
+		
+	Position move = possible_moves[0];
 
 	for (unsigned int i = 0; i < possible_moves.size(); i++) {
 		// copy board and simulate move
@@ -29,6 +34,9 @@ Position HeuristicPlayer::getNextMove(Board const& board, Field current_field) {
 
 		// calculate score for possible move
 		int currentMoveScore = -getMinMaxScore(copy, ~current_field, DEPTH);
+
+		std::cout << std::to_string(moveScore) + "\n";
+
 		if (copy.isWinner(current_field)) { //check if move ends it
 			move = possible_moves[i];
 			break;
@@ -38,7 +46,7 @@ Position HeuristicPlayer::getNextMove(Board const& board, Field current_field) {
 			move = possible_moves[i];
 		}
 	}
-
+	std::cout << "======================\n";
 	return move;
 }
 
@@ -48,17 +56,17 @@ int HeuristicPlayer::getMinMaxScore(Board const& board, Field current_field, int
 
 	//determine score of the move
 	if (board.isWinner(current_field)) {
-		return 1;
+		return 10;
 	}
 	else if (board.isWinner(~current_field)) {
-		return -1;
+		return -10;
 	}
 	else if (board.isFull()) {
 		return 0;
 	}
 
 	if (depth == 0) {
-		// heuristic
+		return getHeuristicScore(board, current_field);
 	}
 
 	//check all the other options by checking the new situation recursively in the loop
@@ -73,5 +81,55 @@ int HeuristicPlayer::getMinMaxScore(Board const& board, Field current_field, int
 }
 
 int HeuristicPlayer::getHeuristicScore(Board const& board, Field current_field) {
+	int score = 0;
 
+	// High score positions
+	if (board.getField(0, 0) == current_field)
+		score += 3;
+	else if (board.getField(0, 0) == ~current_field)
+		score -= 3;
+
+	if (board.getField(0, 2) == current_field)
+		score += 3;
+	else if (board.getField(0, 2) == ~current_field)
+		score -= 3;
+
+	if (board.getField(2, 0) == current_field)
+		score += 3;
+	else if (board.getField(2, 0) == ~current_field)
+		score -= 3;
+
+	if (board.getField(2, 2) == current_field)
+		score += 3;
+	else if (board.getField(2, 2) == ~current_field)
+		score -= 3;
+	
+	// Mid score position
+	if (board.getField(1, 1) == current_field)
+		score += 2;
+	else if (board.getField(1, 1) == ~current_field)
+		score -= 2;
+
+	// Low score position
+	if (board.getField(1, 2) == current_field)
+		score += 1;
+	else if (board.getField(1, 2) == ~current_field)
+		score -= 1;
+
+	if (board.getField(0, 1) == current_field)
+		score += 1;
+	else if (board.getField(0, 1) == ~current_field)
+		score -= 1;
+
+	if (board.getField(1, 0) == current_field)
+		score += 1;
+	else if (board.getField(1, 0) == ~current_field)
+		score -= 1;
+
+	if (board.getField(2, 1) == current_field)
+		score += 1;
+	else if (board.getField(2, 1) == ~current_field)
+		score -= 1;
+
+	return score;
 }

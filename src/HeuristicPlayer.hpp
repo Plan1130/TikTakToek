@@ -22,7 +22,7 @@ public:
 
 private:
 	// depth for minmax heuristic
-	const int DEPTH = 2;
+	const int DEPTH = 3;
 
 	// depth added to normal minmax
 	int getMinMaxScore(Board const & board, Field current_field, int depth);
