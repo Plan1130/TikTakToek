@@ -10,7 +10,7 @@ void ofApp::setup(){
     std::srand((unsigned int)std::time(0));
     
     // init players
-    Player *p1 = new HumanPlayer("Alice");
+    Player *p1 = new MinMaxPlayer("Alice");
     Player *p2 = new MinMaxPlayer("Bob");
     
     // init game
