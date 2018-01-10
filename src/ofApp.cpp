@@ -3,6 +3,7 @@
 #include "HumanPlayer.hpp"
 #include "RandomPlayer.hpp"
 #include "MinMaxPlayer.hpp"
+#include "HeuristicPlayer.hpp"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -11,7 +12,7 @@ void ofApp::setup(){
     
     // init players
     Player *p1 = new MinMaxPlayer("Alice");
-    Player *p2 = new MinMaxPlayer("Bob");
+    Player *p2 = new HeuristicPlayer("Bob");
     
     // init game
     game_ = new Game(p1, p2);
