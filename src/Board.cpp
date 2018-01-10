@@ -11,7 +11,6 @@
 #include <cassert>
 
 Board::Board() {
-    
 	reset();
 }
 
@@ -19,7 +18,6 @@ void Board::reset() {
     // sets all fields to empty
     for(int i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
         grid_[i] = Field::Empty;
-		throw "ERROR LOL";
     }
 }
 
