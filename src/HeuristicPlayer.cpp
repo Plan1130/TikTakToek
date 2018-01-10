@@ -28,7 +28,7 @@ Position HeuristicPlayer::getNextMove(Board const& board, Field current_field) {
 		copy.doMove(possible_moves[i], current_field);
 
 		// calculate score for possible move
-		int currentMoveScore = -getMinMaxScore(copy, ~current_field);
+		int currentMoveScore = -getMinMaxScore(copy, ~current_field, DEPTH);
 		if (copy.isWinner(current_field)) { //check if move ends it
 			move = possible_moves[i];
 			break;
@@ -42,7 +42,7 @@ Position HeuristicPlayer::getNextMove(Board const& board, Field current_field) {
 	return move;
 }
 
-int HeuristicPlayer::getMinMaxScore(Board const& board, Field current_field) {
+int HeuristicPlayer::getMinMaxScore(Board const& board, Field current_field, int depth) {
 	//store moves in vector stack
 	std::vector<Position> possible_moves = board.getEmptyPositions();
 
@@ -57,13 +57,21 @@ int HeuristicPlayer::getMinMaxScore(Board const& board, Field current_field) {
 		return 0;
 	}
 
+	if (depth == 0) {
+		// heuristic
+	}
+
 	//check all the other options by checking the new situation recursively in the loop
 	int currentScore = -1; // lowest value
 	for (unsigned int i = 0; i < possible_moves.size(); i++) {
 		Board copy = Board(board);
 		copy.doMove(possible_moves[i], current_field);
-		currentScore = std::max(currentScore, -getMinMaxScore(copy, ~current_field));
+		currentScore = std::max(currentScore, -getMinMaxScore(copy, ~current_field, depth-1));
 	}
 
 	return currentScore;
+}
+
+int HeuristicPlayer::getHeuristicScore(Board const& board, Field current_field) {
+
 }

@@ -1,8 +1,8 @@
 //
-//  HumanPlayer.hpp
+//  HeuristicPlayer.hpp
 //  TicTacToe
 //
-//  Created by David Stritzl on 29/11/15.
+//  Created by Sander Koning & Florian Fikkert on 10/1/18.
 //
 //
 
@@ -18,7 +18,17 @@ public:
 
 	// returns the position of the next move for this player (given the current board and the symbol(Field) of the current player)
 	Position getNextMove(Board const&, Field) override;
-	int getMinMaxScore(Board const & board, Field current_field);
+
+
+private:
+	// depth for minmax heuristic
+	const int DEPTH = 2;
+
+	// depth added to normal minmax
+	int getMinMaxScore(Board const & board, Field current_field, int depth);
+
+	// heuristic score determination
+	int getHeuristicScore(Board const & board, Field current_field);
 };
 
 #endif
