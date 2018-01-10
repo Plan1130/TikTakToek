@@ -11,7 +11,8 @@
 #include <cassert>
 
 Board::Board() {
-    reset();
+    
+	reset();
 }
 
 void Board::reset() {
