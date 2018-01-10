@@ -47,12 +47,14 @@ int MinMaxPlayer::getMinMaxScore(Board const& board, Field current_field) {
 	std::vector<Position> possible_moves = board.getEmptyPositions();
 
 	//determine score of the move
-	if (board.isWinner(~current_field)) {
-		return 0;
-	}
-
-	if (board.isFull()) {
+    if (board.isWinner(current_field)) {
 		return 1;
+	}
+	else if (board.isWinner(~current_field)) {
+		return -1;
+	}
+	else if (board.isFull()) {
+		return 0;
 	}
 
 	//check all the other options by checking the new situation recursively in the loop
