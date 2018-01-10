@@ -11,7 +11,7 @@ void ofApp::setup(){
     
     // init players
     Player *p1 = new HumanPlayer("Alice");
-    Player *p2 = new RandomPlayer("Bob");
+    Player *p2 = new MinMaxPlayer("Bob");
     
     // init game
     game_ = new Game(p1, p2);
