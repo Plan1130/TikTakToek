@@ -13,6 +13,7 @@
 #include <cstdlib>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 Position MinMaxPlayer::getNextMove(Board const& board, Field current_field) {
 	//store moves in vector stack
